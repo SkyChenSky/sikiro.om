@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+/logs/error/2020-11-04.log
+/logs/info/2020-11-04.log
+/logs/error/2020-11-05.log
+/logs/info/2020-11-05.log
