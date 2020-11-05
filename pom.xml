@@ -7,6 +7,7 @@
         <module>sikiro-om-api</module>
         <module>sikiro-om-application</module>
         <module>sikiro-om-infrastructure</module>
+        <module>sikiro-om-repository</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
