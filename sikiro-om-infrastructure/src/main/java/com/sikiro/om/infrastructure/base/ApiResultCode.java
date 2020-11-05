@@ -1,13 +1,15 @@
 package com.sikiro.om.infrastructure.base;
 
-public enum ServiceResultCode {
-    Failed(0,"失败"),
-    Succeed(1,"成功");
+public enum ApiResultCode {
+
+    Succeed(200,"请求成功"),
+    Failed(400,"请求失败"),
+    Error(500,"服务执行异常");
 
     private int _index;
     private String _msg;
 
-    ServiceResultCode(int index, String msg) {
+    ApiResultCode(int index, String msg) {
         _index = index;
         _msg = msg;
     }
@@ -18,4 +20,5 @@ public enum ServiceResultCode {
     public String Message() {
         return _msg;
     }
+
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    public boolean CheckPassword() {
+    public boolean CheckPassword(String userName,String password) {
         return false;
     }
 

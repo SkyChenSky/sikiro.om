@@ -1,100 +1,108 @@
 package com.sikiro.om.infrastructure.base;
 
+import lombok.Getter;
+
 /**
  * 服务方法通用返回
  * @param <T>
  */
+@SuppressWarnings("ALL")
 public class ServiceResult<T> {
 
     /**
      * 结果码
      */
-    private ServiceResultCode _resultCode;
+    private ServiceResultCode resultCode;
 
     /**
      * 返回消息
      */
-    private String _message;
+    @Getter
+    private String message;
 
     /**
      * 返回异常
      */
-    private Exception _exception;
+    @Getter
+    private Exception exception;
 
     /**
      * 返回数据结果
      */
-    private T _data;
+    @Getter
+    private T data;
 
-    public T getData() {
-        return _data;
+    public ServiceResult(String msg, ServiceResultCode rc) {
+        message = msg;
+        resultCode = rc;
     }
 
-    public String getMessage() {
-        return _message;
-    }
-
-    public Exception getException() {
-        return _exception;
-    }
-
-    public ServiceResult(String msg, ServiceResultCode resultCode) {
-        _message = msg;
-        _resultCode = resultCode;
-    }
-
-    public ServiceResult(String msg, ServiceResultCode resultCode, T data) {
-        _message = msg;
-        _resultCode = resultCode;
-        _data = data;
-    }
-
-    public ServiceResult(Exception ex, ServiceResultCode resultCode) {
-        _exception = ex;
-        _resultCode = resultCode;
+    public ServiceResult(String msg, ServiceResultCode rc, T d) {
+        message = msg;
+        resultCode = rc;
+        data = d;
     }
 
     /**
      * 是否成功
-     * @return
+     *
+     * @return 是否成功
      */
     public boolean IsSuccessd() {
-        return _resultCode == ServiceResultCode.Succeed;
-    }
-
-    /**
-     * 是否异常
-     * @return
-     */
-    public boolean IsError() {
-        return _resultCode == ServiceResultCode.Error;
+        return resultCode == ServiceResultCode.Succeed;
     }
 
     /**
      * 是否失败
-     * @return
+     *
+     * @return 是否失败
      */
     public boolean IsFailed() {
-        return _resultCode == ServiceResultCode.Error || _resultCode == ServiceResultCode.Failed;
+        return resultCode == ServiceResultCode.Failed;
     }
 
+    /**
+     * 返回成功
+     *
+     * @param msg 成功信息
+     * @param <T> 业务参数
+     * @return ServiceResult
+     */
     public static <T> ServiceResult Success(String msg) {
-        return new ServiceResult(msg, ServiceResultCode.Succeed);
+        return new ServiceResult<T>(msg, ServiceResultCode.Succeed);
     }
 
+    /**
+     * 返回成功
+     *
+     * @param msg  成功信息
+     * @param data 业务数据
+     * @param <T>  业务参数
+     * @return ServiceResult
+     */
     public static <T> ServiceResult Success(String msg, T data) {
-        return new ServiceResult(msg, ServiceResultCode.Succeed, data);
+        return new ServiceResult<>(msg, ServiceResultCode.Succeed, data);
     }
 
-    public static ServiceResult Error(Exception ex) {
-        return new ServiceResult(ex, ServiceResultCode.Error);
-    }
-
+    /**
+     * 返回失败
+     *
+     * @param msg 失败信息
+     * @return ServiceResult
+     */
     public static ServiceResult Failed(String msg) {
-        return new ServiceResult(msg, ServiceResultCode.Failed);
+        return new ServiceResult<>(msg, ServiceResultCode.Failed);
     }
 
+    /**
+     * 返回失败
+     *
+     * @param msg  提示
+     * @param data 数据
+     * @param <T>  业务数据实体
+     * @return ServiceResult
+     */
     public static <T> ServiceResult Failed(String msg, T data) {
-        return new ServiceResult(msg, ServiceResultCode.Failed, data);
+        return new ServiceResult<>(msg, ServiceResultCode.Failed, data);
     }
 }
