@@ -27,6 +27,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>sikiro.om</groupId>
+            <artifactId>sikiro-om-infrastructure</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>2.9.2</version>
@@ -40,12 +46,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>annotationProcessor</scope>
-        </dependency>
-        <dependency>
-            <groupId>sikiro.om</groupId>
-            <artifactId>sikiro-om-infrastructure</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

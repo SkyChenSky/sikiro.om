@@ -27,7 +27,7 @@ public class UserController {
     @ApiOperation(value = "用户登录")
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ApiResult<UserResponse> Login(@RequestBody @Valid UserRequest request) {
-        boolean checkReuslt = userService.CheckPassword(request.userName,request.password);
+        boolean checkReuslt = userService.checkPassword(request.userName, request.password);
 
         ApiResult<UserResponse> res = ApiResult.Success("操作成功", new UserResponse());
         return checkReuslt ? ApiResult.Success(new UserResponse()) : ApiResult.Failed();

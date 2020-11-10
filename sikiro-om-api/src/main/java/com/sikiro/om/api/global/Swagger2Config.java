@@ -27,8 +27,7 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("xxxxx项目 RESTful APIs")
-                .description("xxxxx项目后台api接口文档")
+                .title("权限系统API")
                 .version("1.0")
                 .build();
     }
