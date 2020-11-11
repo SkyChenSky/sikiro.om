@@ -68,7 +68,7 @@ public class ServiceResult<T> {
      * @param <T> 业务参数
      * @return ServiceResult
      */
-    public static <T> ServiceResult Success() {
+    public static <T> ServiceResult<T> Success() {
         return new ServiceResult<T>(ServiceResultCode.Succeed.Message(), ServiceResultCode.Succeed);
     }
 
@@ -100,7 +100,7 @@ public class ServiceResult<T> {
      *
      * @return ServiceResult
      */
-    public static ServiceResult Failed() {
+    public static <T> ServiceResult<T> Failed() {
         return new ServiceResult<>(ServiceResultCode.Failed.Message(), ServiceResultCode.Failed);
     }
 
@@ -128,9 +128,10 @@ public class ServiceResult<T> {
 
     /**
      * 转换ApiResult
+     *
      * @return
      */
-    public ApiResult ToApiResult() {
+    public ApiResult<T> ToApiResult() {
         return this.IsSuccessd() ?
                 ApiResult.Success(this.getMessage(), this.getData()) :
                 ApiResult.Failed(this.getMessage(), this.getData());
@@ -138,6 +139,7 @@ public class ServiceResult<T> {
 
     /**
      * 转换ApiResult
+     *
      * @param classT
      * @param <T>
      * @return
