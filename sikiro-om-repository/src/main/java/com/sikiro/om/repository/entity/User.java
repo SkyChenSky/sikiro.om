@@ -16,7 +16,6 @@ public class User implements Serializable {
      * 主键
      */
     @TableId
-
     private String userId;
 
     /**

@@ -2,8 +2,10 @@ package com.sikiro.om.api.controller;
 
 import com.sikiro.om.api.dto.user.UserRequest;
 import com.sikiro.om.api.dto.user.UserResponse;
+import com.sikiro.om.application.bo.UserBo;
 import com.sikiro.om.application.service.UserService;
 import com.sikiro.om.infrastructure.base.ApiResult;
+import com.sikiro.om.infrastructure.base.ServiceResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +29,9 @@ public class UserController {
     @ApiOperation(value = "用户登录")
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ApiResult<UserResponse> Login(@RequestBody @Valid UserRequest request) {
-        boolean checkReuslt = userService.checkPassword(request.userName, request.password);
 
-        ApiResult<UserResponse> res = ApiResult.Success("操作成功", new UserResponse());
-        return checkReuslt ? ApiResult.Success(new UserResponse()) : ApiResult.Failed();
+        ServiceResult<UserBo> checkReuslt = userService.checkPassword(request.userName, request.password);
+
+        return checkReuslt.ToApiResult(UserResponse.class);
     }
 }

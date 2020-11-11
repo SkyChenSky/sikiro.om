@@ -1,5 +1,6 @@
 package com.sikiro.om.infrastructure.base;
 
+import com.sikiro.om.infrastructure.helper.ModelMapperHelper;
 import lombok.Getter;
 
 /**
@@ -64,11 +65,21 @@ public class ServiceResult<T> {
     /**
      * 返回成功
      *
+     * @param <T> 业务参数
+     * @return ServiceResult
+     */
+    public static <T> ServiceResult Success() {
+        return new ServiceResult<T>(ServiceResultCode.Succeed.Message(), ServiceResultCode.Succeed);
+    }
+
+    /**
+     * 返回成功
+     *
      * @param msg 成功信息
      * @param <T> 业务参数
      * @return ServiceResult
      */
-    public static <T> ServiceResult Success(String msg) {
+    public static <T> ServiceResult<T> Success(String msg) {
         return new ServiceResult<T>(msg, ServiceResultCode.Succeed);
     }
 
@@ -80,8 +91,17 @@ public class ServiceResult<T> {
      * @param <T>  业务参数
      * @return ServiceResult
      */
-    public static <T> ServiceResult Success(String msg, T data) {
+    public static <T> ServiceResult<T> Success(String msg, T data) {
         return new ServiceResult<>(msg, ServiceResultCode.Succeed, data);
+    }
+
+    /**
+     * 返回失败
+     *
+     * @return ServiceResult
+     */
+    public static ServiceResult Failed() {
+        return new ServiceResult<>(ServiceResultCode.Failed.Message(), ServiceResultCode.Failed);
     }
 
     /**
@@ -90,7 +110,7 @@ public class ServiceResult<T> {
      * @param msg 失败信息
      * @return ServiceResult
      */
-    public static ServiceResult Failed(String msg) {
+    public static <T> ServiceResult<T> Failed(String msg) {
         return new ServiceResult<>(msg, ServiceResultCode.Failed);
     }
 
@@ -102,7 +122,30 @@ public class ServiceResult<T> {
      * @param <T>  业务数据实体
      * @return ServiceResult
      */
-    public static <T> ServiceResult Failed(String msg, T data) {
+    public static <T> ServiceResult<T> Failed(String msg, T data) {
         return new ServiceResult<>(msg, ServiceResultCode.Failed, data);
+    }
+
+    /**
+     * 转换ApiResult
+     * @return
+     */
+    public ApiResult ToApiResult() {
+        return this.IsSuccessd() ?
+                ApiResult.Success(this.getMessage(), this.getData()) :
+                ApiResult.Failed(this.getMessage(), this.getData());
+    }
+
+    /**
+     * 转换ApiResult
+     * @param classT
+     * @param <T>
+     * @return
+     */
+    public <T> ApiResult<T> ToApiResult(Class<T> classT) {
+        T data = ModelMapperHelper.Map(this.getData(), classT);
+        return this.IsSuccessd() ?
+                ApiResult.Success(this.getMessage(), data) :
+                ApiResult.Failed(this.getMessage(), data);
     }
 }
